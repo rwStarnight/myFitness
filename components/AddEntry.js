@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { getMetricMetaInfo, timeToString } from '../utils/helpers';
-import Slider from './Slider';
-import Steppers from './Steppers';
+import mySlider from './mySlider';
+import mySteppers from './mySteppers';
 import DateHeader from './DateHeader';
+import { Ionicons } from '@expo/vector-icons';
+import TextButton from './TextButton';
 
 function SubmitBtn({ onPress }) {
     return (
@@ -69,9 +71,33 @@ export default class AddEntry extends Component {
 
       // Clear local notification
     };
+    reset = () => {
+        const key = timeToString()
+
+        // Update Redux
+
+        // Navigate to home
+
+        // Save to DB
+    };
 
     render() {
         const metaInfo = getMetricMetaInfo();
+
+        if (this.props.alreadyLogged) {
+            return (
+                <View>
+                    <Ionicons
+                        name='ios-happy-outline'
+                        size={100}
+                    />
+                    <Text>You already logged your information for today</Text>
+                    <TextButton onPress={this.reset}>
+                        Reset
+                    </TextButton>
+                </View>
+            )
+        }
 
         return (
             <View>
@@ -84,12 +110,12 @@ export default class AddEntry extends Component {
                         <View key={key}>
                             {getIcon()}
                             {type === 'slider'
-                            ? <Slider
+                            ? <mySlider
                                 value={value}
                                 onChange={(value) => this.slide(key,value)}
                                 {...rest}
                                 />
-                            : <Steppers
+                            : <mySteppers
                                 value={value}
                                 onIncrement={(value) => this.increment(key)}
                                 onDecrement={(value) => this.decrement(key)}
