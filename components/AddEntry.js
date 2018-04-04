@@ -193,6 +193,4 @@ function mapStateToProps (state) {
     }
 }
 
-export default connect(
-     mapStateToProps
-)(AddEntry)
+export default connect(mapStateToProps)(AddEntry)

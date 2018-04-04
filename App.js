@@ -6,10 +6,9 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 
 export default class App extends React.Component {
-    store = createStore(reducer);
     render() {
         return (
-            <Provider store={this.store}>
+            <Provider store={this.createStore(reducer)}>
                 <View style={{flex: 1}}>
                  <AddEntry />
                 </View>
